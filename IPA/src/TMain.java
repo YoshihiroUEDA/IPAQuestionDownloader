@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -21,13 +22,15 @@ class TDownload {
 	public TDownload(String urlString, String saveFolderName, String saveFileName) {
 		URL url = null;
 		HttpURLConnection urlcon = null;
-
+		BufferedReader br =null; 
+		FileOutputStream fos =null;
+		
 		try {
 			url = new URL(urlString);
 			urlcon = (HttpURLConnection) url.openConnection();
 			urlcon.setRequestMethod("GET");
 			
-			BufferedReader br =new BufferedReader( new InputStreamReader( urlcon.getInputStream()));
+			br=new BufferedReader( new InputStreamReader( urlcon.getInputStream()));
 			String line ;
 			
 			System.out.println( "BufferedReader Ok.");
