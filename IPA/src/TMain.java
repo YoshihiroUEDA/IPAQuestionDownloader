@@ -1,13 +1,5 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 
 public class TMain {
@@ -20,67 +12,25 @@ public class TMain {
 		String filename = list[list.length-1];
 		
 		THtmlDownload obj = new THtmlDownload("https://www.jitec.ipa.go.jp/1_04hanni_sukiru/_index_mondai.html");
-		ArrayList <String> listBase = obj.getArray();
-		//	item “WŠJ
-//		ArrayList <String> work =new ArrayList<String> ();
-		for( int i =0; i< listBase.size(); i++){
+		ArrayList<String> tmps = obj.getPDFsList();
+		System.out.println( "pdf unit size = "+ tmps.size());
+		for (int i  =0; i<tmps.size(); i++){
+			System.out.println( tmps.get(i));
 			
 		}
+		
+		tmps = obj.getHtmlsList();
+		System.out.println( "html unit size = "+ tmps.size());
+		for (int i  =0; i<tmps.size(); i++){
+			System.out.println( tmps.get(i));
+			
+		}
+		
+	
 //		new TDownload( urlmoji,
 //				"C:\\Users\\ueda\\Desktop",filename);
 		
 
 	}
 
-}
-
-
-
-class TDownload {
-
-	public TDownload(String urlString, String saveFolderName, String saveFileName) {
-		
-		System.out.println( "urlString = " + urlString);
-		System.out.println( "saveFolderName = " + saveFolderName);
-		System.out.println( "saveFilename = " + saveFileName	);
-		String saveFilePath = saveFolderName+File.separator+saveFileName; 
-				System.out.println( "savePath = "+saveFilePath);
-		
-		
-		URL url = null;
-		URLConnection urlcon=null;
-		
-		BufferedReader br =null; 
-		FileOutputStream fos =null;
-		
-		try {
-			url = new URL(urlString);
-			 urlcon = url.openConnection();
-			InputStream is = urlcon.getInputStream();
-			File fout = new File( saveFilePath	);
-			FileOutputStream out = new FileOutputStream( fout, false	);
-			byte [] bytes = new byte[1024*1024	];
-			
-			while(true ){
-				int ret = is.read(bytes);
-//				System.out.print( "["+ ret+"]");
-				if ( ret <=0 )			break;
-				out.write(bytes,0,ret);
-				
-			}
-			out.close();
-			out=null;
-			is.close();
-			is=null;
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			System.out.println("URL Object cannot created.");
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println("HttpURLConnection object cannot created.");
-			e.printStackTrace();
-		}
-
-	}
 }

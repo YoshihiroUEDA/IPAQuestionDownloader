@@ -4,11 +4,16 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 
 public class THtmlDownload {
 	ArrayList<String> list = new ArrayList<String>();
-
+	/**
+	 * htmlファイルからURLを抜き出してリスト化するコンストラクタ。
+	 * コンストラクタで面倒な処理を一切合財行う。
+	 * @param urlString
+	 */
 	public THtmlDownload(String urlString) {
 		try {
 			//	
@@ -40,7 +45,37 @@ public class THtmlDownload {
 		}
 		
 	}
-	ArrayList<String> getArray(){
-		return list;
+	
+	/**
+	 * コンストラクタで生成されたリストの中からPDFファイルだけを取り出すための関数
+	 * @return
+	 */
+	public  ArrayList<String>	getPDFsList(){
+		ArrayList<String> work = new ArrayList<String>();
+		for ( int i =0; i<list.size();i++){
+			if ( list.get(i).indexOf(".PDF")>=0 || list.get(i).indexOf(".pdf")>=0){
+				work.add(list.get(i));
+				
+			}
+		}
+		return work;
 	}
+	
+	/**
+	 * コンストラクタで生成したリストの中から、ｈｔｍｌファイルのURLだけを抜き出す。
+	 * @return
+	 */
+	public ArrayList<String>	getHtmlsList(){
+		ArrayList<String> lis = new ArrayList<String>();
+		for( int i  =0; i < list.size();i++){
+			if ( list.get(i).indexOf(".html")>=0 || list.get(i).indexOf(".HTML")>=0){
+				lis.add(list.get(i));
+			}
+		}
+		return lis;
+	}
+	
+
+
+	
  }
